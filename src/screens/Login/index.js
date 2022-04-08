@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Image, Animated, View, StyleSheet, Keyboard } from 'react-native';
+import { Animated, StyleSheet, Keyboard } from 'react-native';
 
 import {
   StyledKeyBoardAvoidView,
