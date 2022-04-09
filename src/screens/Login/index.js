@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Animated, StyleSheet, Keyboard } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 import {
   StyledKeyBoardAvoidView,
   StyledTouchableOpacity,
   StyledText,
   StyledContainerLogo,
-  StyledInput,
   StyledRegister,
   StyledRegisterText,
 } from './styles';
 
+import Input from '../../components/Input';
+
 import icLogo from '../../assets/images/logo.png';
 
 export default function Login() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  const { navigate } = useNavigation();
 
   const [offset] = useState(new Animated.ValueXY({ x: 0, y: 100 }));
   const [logo] = useState(new Animated.ValueXY({ x: 130, y: 155 }));
   const [opacity] = useState(new Animated.Value(0));
+
+  const [errorMail, setErrorMail] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
 
   function keyboardDidShow() {
     Animated.parallel([
@@ -84,6 +92,15 @@ export default function Login() {
     LoadingAnimated();
   }, []);
 
+  function onLogin() {
+    setErrorMail(email == ''|| email == null);
+    setErrorPassword(password == '' || password == null);
+
+    if (email && password) {
+      navigate('Home');
+    }
+  }
+
   return (
     <StyledKeyBoardAvoidView>
       <StyledContainerLogo>
@@ -106,22 +123,28 @@ export default function Login() {
           },
         ]}
       >
-        <StyledInput
+        <Input
           testID='txtEmail'
           placeholder='Email'
           autoCorrect={false}
           value={email}
           onChangeText={setEmail}
+          error={errorMail}
+          errorMessage='Email is required'
         />
-        <StyledInput
+
+        <Input
           testID='txtPassword'
           placeholder='Password'
           autoCorrect={false}
           value={password}
+          secureTextEntry
           onChangeText={setPassword}
+          error={errorPassword}
+          errorMessage='Password is required'
         />
 
-        <StyledTouchableOpacity>
+        <StyledTouchableOpacity testID='btnSignIn' onPress={onLogin}>
           <StyledText>Sign In</StyledText>
         </StyledTouchableOpacity>
 

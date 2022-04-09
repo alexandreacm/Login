@@ -10,11 +10,13 @@ const StyledKeyBoardAvoidView = styled.KeyboardAvoidingView`
 
 const StyledContainer = styled.View`
   flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StyledText = styled.Text`
-  font-size: 20px;
-  color: #000;
+  font-size: 35px;
+  color: #FFF;
 `;
 
 export { StyledKeyBoardAvoidView, StyledContainer, StyledText };

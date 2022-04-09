@@ -11,7 +11,13 @@ export default function HomeStack() {
   return (
     <NavigationContainer>
       <Navigator>
-        <Screen name='Login' component={Login} />
+        <Screen
+          options={{
+            headerShown: false,
+          }}
+          name='Login'
+          component={Login}
+        />
         <Screen name='Home' component={Home} />
       </Navigator>
     </NavigationContainer>
